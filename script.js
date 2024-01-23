@@ -1,93 +1,83 @@
-const increaseButtonEl = document.querySelector('.counter__button--increase')
-const decreaseButtonEl = document.querySelector('.counter__button--decrease')
-const counterValueEl = document.querySelector('.counter__value')
-const resetButtonEl = document.querySelector('.counter__reset-button')
-const counterEl = document.querySelector('.counter')
-const counterTitleEl = document.querySelector('.counter__title')
+const counterEl = document.querySelector('.counter');
+const increaseButtonEl = document.querySelector('.counter__button--increase');
+const decreaseButtonEl = document.querySelector('.counter__button--decrease');
+const resetButtonEl = document.querySelector('.counter__reset-button');
+const counterValueEl = document.querySelector('.counter__value');
+const counterTitleEl = document.querySelector('.counter__title');
 
+resetButtonEl.addEventListener('click', () => {
+  // set counter value to 0
+  counterValueEl.textContent = 0;
 
+  // reset background color
+  counterEl.classList.remove('counter--limit');
 
-increaseButtonEl.addEventListener('click', incrementCounter)
-//for increment anywhere we need 
-document.addEventListener('keydown', incrementCounter)
+  // reset counter title
+  counterTitleEl.textContent = 'Fancy Counter';
 
-const incrementCounter = () => {
-    //get current value of counter
-    const currentValue = counterValueEl.textContent
-    
-    //convert value to number type
-    const currentValueAsNumber = +currentValue
-    
-    //increment by 1
-    let newValue = currentValueAsNumber + 1
+  // enable increase and decrease buttons
+  increaseButtonEl.disabled = false;
+  decreaseButtonEl.disabled = false;
 
-    //check if new value > 10
-    if (newValue > 10) {
-        //then force it to ten - actually its depend to us
-        newValue = 10;
-
-        //give visual indicator for user
-       counterEl.classList.add('counter--limit')
-       
-        //update counter title and say limit has been reached
-        counterTitleEl.innerHTML = 'Limit! buy <b>pro</b> for > 10'
-        
-        //disable increase and decrease button
-        increaseButtonEl.disabled = true
-        decreaseButtonEl.disabled = true
-
-        //unfocus button
-        increaseButtonEl.blur()
-    }
-
-    //set counter element with new value
-    counterValueEl.textContent = newValue
-}
-
-
+  // unfocus (blur) reset button
+  resetButtonEl.blur();
+});
 
 decreaseButtonEl.addEventListener('click', () => {
+  // get current value of counter
+  const currentValue = counterValueEl.textContent;
 
-    //take the result of increment by calling currentValue
-    const currentValue = counterValueEl.textContent
+  // convert value value to number type
+  const currentValueAsNumber = +currentValue;
 
-    //change the value from string to number by adding new variable
-    const currentValueAsNumber = +currentValue
+  // decrement by 1
+  let newValue = currentValueAsNumber - 1;
 
-    //adding new variable to increment the value by adding -1
-    let newValue = currentValueAsNumber - 1
+  // check if new value is less than 0
+  if (newValue < 0) {
+    // if it is, force it to be 0 instead
+    newValue = 0;
+  }
 
-    //check if new value is < 0 then do something
-    newValue < 0 ? newValue = 0 : 
+  // update counter value with new value
+  counterValueEl.textContent = newValue;
 
-    //update the last value with call the variable counterValueEl
-    counterValueEl.textContent = newValue
+  // unfocus (blur) button
+  decreaseButtonEl.blur();
+});
 
-    //unfocus button 
-    decreaseButtonEl.blur()
-})
+const incrementCounter = () => {
+  // get current value of counter
+  const currentValue = counterValueEl.textContent;
+    
+  // convert value to number type
+  const currentValueAsNumber = +currentValue;
 
+  // increment by 1
+  let newValue = currentValueAsNumber + 1;
 
-resetButtonEl.addEventListener('click', ()=> {
+  // check if new value is greater than 5
+  if (newValue > 15) {
+    // if it is, force it to be 5 instead
+    newValue = 15;
 
-    //take the last value by calling counterValue and set it to ( 0 ) number or ('0')
-        counterValueEl.textContent = 0
+    // give visual indicator that limit has been reached
+    counterEl.classList.add('counter--limit');
 
-        //reset background color
-        counterEl.classList.remove('counter--limit')
+    // update counter title to say limit has been reached
+    counterTitleEl.innerHTML = 'Limit! Buy <b>Pro</b> for >5';
 
-        //reset counter title
-        counterTitleEl.textContent = 'Fancy Counter'
+    // disable increase and decrease buttons
+    increaseButtonEl.disabled = true;
+    decreaseButtonEl.disabled = true;
+  }
 
-        //enable increase and decrease button
-        increaseButtonEl.disabled = false
-        decreaseButtonEl.disabled = false
+  // set counter element with new value
+  counterValueEl.textContent = newValue;
 
-        //unfocus (blur) reset button
-        resetButtonEl.blur()
-})
+  // unfocus (blur) button
+  increaseButtonEl.blur();
+}
 
-
-
-
-
+increaseButtonEl.addEventListener('click', incrementCounter);
+document.addEventListener('keydown', incrementCounter);
