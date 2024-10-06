@@ -58,14 +58,14 @@ const incrementCounter = () => {
 
   // check if new value is greater than 5
   if (newValue > 15) {
-    // if it is, force it to be 5 instead
+    // if it is, force it to be 15 instead
     newValue = 15;
 
     // give visual indicator that limit has been reached
     counterEl.classList.add('counter--limit');
 
     // update counter title to say limit has been reached
-    counterTitleEl.innerHTML = 'Limit! Buy <b>Pro</b> for >5';
+    counterTitleEl.innerHTML = 'Limit! Buy <b>Pro</b> for >15';
 
     // disable increase and decrease buttons
     increaseButtonEl.disabled = true;
